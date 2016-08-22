@@ -6,7 +6,7 @@ public class MessageInput extends InputText {
     private MessageInput(){
         this.x = 195;
         this.y = 395;
-        this.width = 240;
+        this.width = 200;
         this.height = 20;
         this.init();
     }

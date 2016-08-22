@@ -7,9 +7,9 @@ public class SendBtn extends Button {
     private SendBtn(){
         this.content = "Enviar";
         this.tooltip = "Enviar menssagem";
-        this.x = 440;
+        this.x = 400;
         this.y = 395;
-        this.width = 50;
+        this.width = 90;
         this.height = 20;
         this.init();
     }

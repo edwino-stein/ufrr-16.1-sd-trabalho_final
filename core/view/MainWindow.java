@@ -4,7 +4,6 @@ import ui.Window;
 import core.view.UserLabel;
 import core.view.PeerUserLabel;
 import core.view.UsersListLabel;
-import core.view.UserEditBtn;
 import core.view.ListUpdateBtn;
 import core.view.ChatView;
 import core.view.UsersList;
@@ -28,7 +27,6 @@ public class MainWindow extends Window{
         System.out.println("Inicializando a GUI...");
 
         this.add(UserLabel.getInstance());
-        this.add(UserEditBtn.getInstance());
         this.add(UsersListLabel.getInstance());
         this.add(UsersList.getInstance());
         this.add(ListUpdateBtn.getInstance());
@@ -38,7 +36,7 @@ public class MainWindow extends Window{
         this.add(SendBtn.getInstance());
 
         JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
-        separator.setBounds(180, 5, 10, 417);
+        separator.setBounds(185, 5, 10, 417);
         this.add(separator);
 
         this.setVisible(true);
