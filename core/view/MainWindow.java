@@ -4,7 +4,6 @@ import ui.Window;
 import core.view.UserLabel;
 import core.view.PeerUserLabel;
 import core.view.UsersListLabel;
-import core.view.ListUpdateBtn;
 import core.view.ChatView;
 import core.view.UsersList;
 import core.view.MessageInput;
@@ -29,7 +28,6 @@ public class MainWindow extends Window{
         this.add(UserLabel.getInstance());
         this.add(UsersListLabel.getInstance());
         this.add(UsersList.getInstance());
-        this.add(ListUpdateBtn.getInstance());
         this.add(PeerUserLabel.getInstance());
         this.add(ChatView.getInstance());
         this.add(MessageInput.getInstance());

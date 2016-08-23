@@ -13,7 +13,7 @@ public class UsersList extends List {
         this.x = 10;
         this.y = 65;
         this.width = 165;
-        this.height = 320;
+        this.height = 350;
         this.init();
         this.updateList();
     }
