@@ -30,10 +30,10 @@ public class Main implements BroadcastClientCallback{
 
     public static void main(String[] args) {
 
+        Main.selfInfo = new PeerInfo("192.168.2.4", "Edwino Stein");
+
         Main.users = new Vector<Client>();
         Main.history = new Vector<ChatHistory>();
-
-        Main.selfInfo = new PeerInfo("192.168.2.4", "Edwino Stein");
 
         System.out.println("IP deste Peer: " + Main.selfInfo.getIp());
         System.out.println("UUID deste Peer: " + Main.selfInfo.getUUID());
@@ -61,7 +61,7 @@ public class Main implements BroadcastClientCallback{
         Main.instance = new Main();
         Main.bcClient = new BroadcastClient(Main.instance, Main.BROADCAST_PORT);
         Main.bcClient.start();
-        
+
     }
 
     public void onReceiveBroadcast(String uuid, String ip){
@@ -95,11 +95,12 @@ public class Main implements BroadcastClientCallback{
         Client p = null;
         int i;
 
-        System.out.println("Recebe: "+from.getUserName()+" ("+from.getUUID()+", "+from.getIp()+"):\n"+msg.getBody+" ("+msg.getDate()+")");
+        System.out.println("Recebe: "+from.getUserName()+" ("+from.getUUID()+", "+from.getIp()+"):\n\t"+msg.getBody()+" ("+msg.getDate()+")\n");
 
         for(i = 0; i < Main.users.size(); i++){
             p = Main.users.get(i);
             if(p.getInfo().getUUID().equals(from.getUUID())) break;
+            else p = null;
         }
 
         if(p != null){
@@ -107,12 +108,19 @@ public class Main implements BroadcastClientCallback{
             UsersList.getInstance().notifyNewMsg(i);
         }
         else{
+
             Client peer = Client.fetchPeer(from.getIp(), Main.RMI_PORT);
             if(peer != null){
+
                 Main.users.addElement(peer);
                 UsersList.getInstance().addItem(peer.getInfo().getUserName());
-                Main.history.addElement(new ChatHistory(from));
+
+                ChatHistory ch = new ChatHistory(from);
+                ch.push(msg, false);
+
+                Main.history.addElement(ch);
                 System.out.println("Novo peer detectado: " + from.getUserName() + " (" + from.getUUID() + ", "+ from.getIp() +")");
+
             }
         }
     }
@@ -123,7 +131,11 @@ public class Main implements BroadcastClientCallback{
         Message m = new Message(msg);
 
         if(peer.send(Main.selfInfo, m)){
+
             Main.history.get(userIndex).push(m, true);
+            PeerInfo info = peer.getInfo();
+
+            System.out.println("Envia: "+info.getUserName()+" ("+info.getUUID()+", "+info.getIp()+"):\n\t"+m.getBody()+" ("+m.getDate()+")\n");
             return true;
         }
         else{
