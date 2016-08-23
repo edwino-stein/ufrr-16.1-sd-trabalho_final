@@ -5,6 +5,7 @@ import javax.swing.event.ListSelectionEvent;
 import core.Main;
 import core.Client;
 import core.view.ChatView;
+import core.ChatHistory;
 
 public class UsersList extends List {
 
@@ -18,12 +19,26 @@ public class UsersList extends List {
     }
 
     public void onChange(int selectedItem, int lastSelectedItem, boolean isAdjusting, ListSelectionEvent e){
+        ChatHistory h = Main.history.get(selectedItem);
+        h.resetUnreadedCounter();
+        this.setItem(selectedItem, h.getUser().getUserName());
         ChatView.getInstance().showChatOf(selectedItem);
     }
 
     public void notifyNewMsg(int index){
+
+        ChatHistory h = Main.history.get(index);
+
         if(index == this.getSelectedIndex()){
             ChatView.getInstance().showChatOf(index);
+            h.resetUnreadedCounter();
+            this.setItem(index, h.getUser().getUserName());
+        }
+        else{
+            this.setItem(
+                index,
+                h.getUser().getUserName()+" ("+String.valueOf(h.getUnreadedCounter())+")"
+            );
         }
     }
 

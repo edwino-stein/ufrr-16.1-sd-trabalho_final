@@ -8,13 +8,14 @@ public class ChatHistory {
 
     protected Vector<Message> history;
     protected Vector<Boolean> historyOwner;
-
+    protected int unreadedCounter;
     protected PeerInfo user;
 
     public ChatHistory(PeerInfo user){
         this.user = user;
         this.history = new Vector<Message>();
         this.historyOwner = new Vector<Boolean>();
+        this.unreadedCounter = 0;
     }
 
     public int getTotal(){
@@ -32,7 +33,16 @@ public class ChatHistory {
     public ChatHistory push(Message msg, boolean self){
         this.history.addElement(msg);
         this.historyOwner.addElement(new Boolean(self));
+        this.unreadedCounter++;
         return this;
+    }
+
+    public int getUnreadedCounter(){
+        return this.unreadedCounter;
+    }
+
+    public void resetUnreadedCounter(){
+        this.unreadedCounter = 0;
     }
 
     public PeerInfo getUser(){

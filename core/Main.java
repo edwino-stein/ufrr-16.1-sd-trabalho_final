@@ -144,7 +144,7 @@ public class Main implements BroadcastClientCallback{
 
         if(peer.send(Main.selfInfo, m)){
 
-            Main.history.get(userIndex).push(m, true);
+            Main.history.get(userIndex).push(m, true).resetUnreadedCounter();
             PeerInfo info = peer.getInfo();
 
             System.out.println("Envia: "+info.getUserName()+" ("+info.getUUID()+", "+info.getIp()+"):\n\t"+m.getBody()+" ("+m.getDate()+")\n");
