@@ -12,6 +12,7 @@ import core.services.BroadcastServer;
 import core.services.BroadcastClient;
 import core.services.BroadcastClientCallback;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 
 public class Main implements BroadcastClientCallback{
 
@@ -31,7 +32,21 @@ public class Main implements BroadcastClientCallback{
 
     public static void main(String[] args) {
 
-        Main.selfInfo = new PeerInfo("192.168.2.4", "Edwino Stein");
+        if(args.length < 1){
+            System.out.println("Error: Ip do host é inválido!");
+        }
+
+        String ip = args[0];
+        System.setProperty("java.rmi.server.hostname", ip);
+
+        String userName = JOptionPane.showInputDialog(null, "Informe o seu nome: ", "Chat SD P2P", JOptionPane.YES_OPTION);
+
+        if (userName == null) {
+            System.out.println("Erro: Nome de usuário inválido.");
+            return;
+        }
+
+        Main.selfInfo = new PeerInfo(ip, userName);
 
         Main.users = new Vector<Client>();
         Main.history = new Vector<ChatHistory>();

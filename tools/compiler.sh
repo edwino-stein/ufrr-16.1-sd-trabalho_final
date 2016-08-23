@@ -16,7 +16,7 @@
 common=();
 forceCommonCompilation=0;
 
-autoExec=1;
+autoExec=0;
 showSplash=1;
 
 baseDir='./';
