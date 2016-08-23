@@ -39,7 +39,7 @@ public class Server {
             this.registry = LocateRegistry.createRegistry(this.port);
             this.registry.bind("Peer", stub);
 
-            System.out.println("O servidor está em execução");
+            System.out.println("O servidor RMI está em execução!");
 
         } catch (Exception e) {
             e.printStackTrace();

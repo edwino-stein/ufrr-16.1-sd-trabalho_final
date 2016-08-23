@@ -101,8 +101,14 @@ public class Main implements BroadcastClientCallback{
 
         boolean founded = false;
         for(int i = 0; i < Main.users.size(); i++){
+
             Client p = Main.users.get(i);
-            if(p.getInfo().getUUID().equals(uuid)){
+            if(p == null) continue;
+
+            PeerInfo info = p.getInfo();
+            if(info == null) continue;
+
+            if(info.getUUID().equals(uuid)){
                 founded = true;
                 break;
             }

@@ -100,8 +100,7 @@ public class Client {
             if(stub.isAlive()) return new Client(stub);
 
         } catch (Exception e) {
-            System.err.println("Client exception: " + e.toString());
-            e.printStackTrace();
+            System.out.println("Erro ao buscar o Peer "+server+":"+String.valueOf(port));
             return null;
         }
 
