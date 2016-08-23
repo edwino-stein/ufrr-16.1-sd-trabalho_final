@@ -19,6 +19,7 @@ public class Main implements BroadcastClientCallback{
 
     public static final int RMI_PORT = 1099;
     public static final int BROADCAST_PORT = 1098;
+    public static final int BROADCAST_TIMEOUT = 5000;
 
     public static Vector<Client> users;
     public static Vector<ChatHistory> history;
@@ -62,6 +63,10 @@ public class Main implements BroadcastClientCallback{
         Main.bcClient = new BroadcastClient(Main.instance, Main.BROADCAST_PORT);
         Main.bcClient.start();
 
+        while(true){
+            Main.bcServer.start(3);
+            try{Thread.sleep(Main.BROADCAST_TIMEOUT);} catch (Exception e){}
+        }
     }
 
     public void onReceiveBroadcast(String uuid, String ip){

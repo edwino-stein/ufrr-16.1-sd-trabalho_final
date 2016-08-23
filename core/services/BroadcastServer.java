@@ -56,8 +56,6 @@ public class BroadcastServer implements Runnable {
         this.packetCount = 0;
         this.packetLimit = packetLimit;
 
-        System.out.println("Enviando "+String.valueOf(packetLimit) +" pacotes de identificação");
-
         try{
             this.socket = new DatagramSocket();
             this.socket.setBroadcast(true);
