@@ -66,8 +66,6 @@ public class Main implements BroadcastClientCallback{
 
     public void onReceiveBroadcast(String uuid, String ip){
 
-        // if(Main.selfInfo.getUUID().equals(uuid)) return;
-
         boolean founded = false;
         for(int i = 0; i < Main.users.size(); i++){
             Client p = Main.users.get(i);
@@ -78,15 +76,27 @@ public class Main implements BroadcastClientCallback{
         }
 
         if(!founded){
-            Client peer = Client.fetchPeer(ip, Main.RMI_PORT);
-            if(peer != null){
-                Main.users.addElement(peer);
-                UsersList.getInstance().addItem(peer.getInfo().getUserName());
-                Main.history.addElement(new ChatHistory(peer.getInfo()));
-                System.out.println("Novo peer detectado: " + peer.getInfo().getUserName() + " (" + peer.getInfo().getUUID() + ", "+ ip +")");
-                peer.send(Main.selfInfo, "teste");
-            }
 
+            if(Main.selfInfo.getUUID().equals(uuid)){
+                Client peer = Client.fetchPeer(ip, Main.RMI_PORT);
+                if(peer != null){
+                    Main.users.addElement(peer);
+                    PeerInfo info = new PeerInfo(ip, "Teste de Echo");
+                    UsersList.getInstance().addItem(info.getUserName());
+                    Main.history.addElement(new ChatHistory(info));
+                    System.out.println("Peer para teste de echo detectado.");
+                    peer.send(Main.selfInfo, "Olá, isto é um teste de comunição.");
+                }
+            }
+            else{
+                Client peer = Client.fetchPeer(ip, Main.RMI_PORT);
+                if(peer != null){
+                    Main.users.addElement(peer);
+                    UsersList.getInstance().addItem(peer.getInfo().getUserName());
+                    Main.history.addElement(new ChatHistory(peer.getInfo()));
+                    System.out.println("Novo peer detectado: " + peer.getInfo().getUserName() + " (" + peer.getInfo().getUUID() + ", "+ ip +")");
+                }
+            }
         }
     }
 
