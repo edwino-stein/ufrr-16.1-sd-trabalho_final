@@ -28,9 +28,23 @@ public class UsersList extends List {
     }
 
     public void updateList(){
+
         for(int i = 0; i < Main.users.size(); i++){
             Client p = Main.users.get(i);
             this.addItem(i, p.getInfo().getUserName());
+        }
+
+        this.updateSelection();
+    }
+
+    public void updateSelection(){
+        if(this.count() > 0){
+            if(this.getSelectedIndex() >= 0 && this.getSelectedIndex() < this.count()){
+                this.selectItem(this.getSelectedIndex());
+            }
+            else {
+                this.selectItem(0);
+            }
         }
     }
 

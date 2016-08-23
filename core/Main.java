@@ -86,6 +86,7 @@ public class Main implements BroadcastClientCallback{
                     Main.history.addElement(new ChatHistory(info));
                     System.out.println("Peer para teste de echo detectado.");
                     peer.send(Main.selfInfo, "Olá, isto é um teste de comunição.");
+                    UsersList.getInstance().updateSelection();
                 }
             }
             else{
@@ -95,6 +96,7 @@ public class Main implements BroadcastClientCallback{
                     UsersList.getInstance().addItem(peer.getInfo().getUserName());
                     Main.history.addElement(new ChatHistory(peer.getInfo()));
                     System.out.println("Novo peer detectado: " + peer.getInfo().getUserName() + " (" + peer.getInfo().getUUID() + ", "+ ip +")");
+                    UsersList.getInstance().updateSelection();
                 }
             }
         }
