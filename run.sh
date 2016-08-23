@@ -3,7 +3,7 @@
 compiler="./tools/compiler.sh";
 sources="core/Main.java";
 mainClass="core.Main";
-default="wlp1s0";
+default="eth0";
 
 function getIp(){
     ifconfig "$1" | grep -oE "(inet\s(end\.:\s)?)([[:digit:]]*(\.[[:digit:]]*){3})" | grep -oE "([[:digit:]]*(\.[[:digit:]]*){3})"
@@ -18,7 +18,7 @@ fi
 ip=$(getIp "$interface");
 
 if [[ -z "$ip" ]]; then
-    echo "A interface não existe ou não está em uso.";
+    echo "A interface \"$interface\" não existe ou não está em uso.";
     exit 1;
 fi
 
