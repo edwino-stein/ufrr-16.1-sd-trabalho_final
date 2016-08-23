@@ -2,6 +2,10 @@ package core.view;
 import ui.List;
 import javax.swing.event.ListSelectionEvent;
 
+import core.Main;
+import core.Client;
+import core.view.ChatView;
+
 public class UsersList extends List {
 
     private UsersList(){
@@ -10,10 +14,24 @@ public class UsersList extends List {
         this.width = 165;
         this.height = 320;
         this.init();
+        this.updateList();
     }
 
     public void onChange(int selectedItem, int lastSelectedItem, boolean isAdjusting, ListSelectionEvent e){
-        System.out.println("Selecionado item: " + String.valueOf(selectedItem));
+        ChatView.getInstance().showChatOf(selectedItem);
+    }
+
+    public void notifyNewMsg(int index){
+        if(index == this.getSelectedIndex()){
+            ChatView.getInstance().showChatOf(index);
+        }
+    }
+
+    public void updateList(){
+        for(int i = 0; i < Main.users.size(); i++){
+            Client p = Main.users.get(i);
+            this.addItem(i, p.getInfo().getUserName());
+        }
     }
 
     private static final UsersList INSTANCE = new UsersList();

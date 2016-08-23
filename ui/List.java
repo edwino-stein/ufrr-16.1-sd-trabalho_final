@@ -43,6 +43,10 @@ public abstract class List extends Component implements ListSelectionListener {
         this.lastSelectedItem = this.listView.getSelectedIndex();
     }
 
+    public int getSelectedIndex(){
+        return this.lastSelectedItem;
+    }
+
     public List selectItem(int index){
         this.listView.setSelectedIndex(index);
         return this;

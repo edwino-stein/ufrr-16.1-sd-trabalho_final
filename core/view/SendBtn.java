@@ -1,6 +1,10 @@
 package core.view;
 import ui.Button;
 import java.awt.event.ActionEvent;
+import core.Main;
+import core.view.UsersList;
+import core.view.ChatView;
+import core.view.MessageInput;
 
 public class SendBtn extends Button {
 
@@ -15,7 +19,14 @@ public class SendBtn extends Button {
     }
 
     public void onClick(ActionEvent e){
-        System.out.println("Enviar menssagem!");
+
+        int index = UsersList.getInstance().getSelectedIndex();
+        MessageInput input = MessageInput.getInstance();
+
+        if(Main.sendMessage(index, input.getValue())){
+            input.clear();
+            ChatView.getInstance().showChatOf(index);
+        }
     }
 
     private static final SendBtn INSTANCE = new SendBtn();

@@ -1,5 +1,6 @@
 package core.view;
 import ui.Label;
+import core.Main;
 
 public class UserLabel extends Label{
 
@@ -10,6 +11,11 @@ public class UserLabel extends Label{
         this.width = 165;
         this.height = 20;
         this.init();
+    }
+
+    protected void init(){
+        super.init();
+        this.setContent(Main.selfInfo.getUserName());
     }
 
     private static final UserLabel INSTANCE = new UserLabel();
