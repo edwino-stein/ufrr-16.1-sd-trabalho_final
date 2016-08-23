@@ -64,6 +64,19 @@ public class Main implements BroadcastClientCallback{
         Main.bcClient.start();
 
         while(true){
+
+            for(int i = 0; i < Main.users.size(); i++){
+
+                Client p = Main.users.get(i);
+
+                if(!p.isAlive()){
+                    UsersList.getInstance().rmItem(i);
+                    Main.users.remove(i);
+                    Main.history.remove(i);
+                }
+
+            }
+
             Main.bcServer.start(3);
             try{Thread.sleep(Main.BROADCAST_TIMEOUT);} catch (Exception e){}
         }

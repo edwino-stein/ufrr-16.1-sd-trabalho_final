@@ -19,10 +19,16 @@ public class UsersList extends List {
     }
 
     public void onChange(int selectedItem, int lastSelectedItem, boolean isAdjusting, ListSelectionEvent e){
-        ChatHistory h = Main.history.get(selectedItem);
-        h.resetUnreadedCounter();
-        this.setItem(selectedItem, h.getUser().getUserName());
-        ChatView.getInstance().showChatOf(selectedItem);
+
+        if(selectedItem >= 0){
+            ChatHistory h = Main.history.get(selectedItem);
+            h.resetUnreadedCounter();
+            this.setItem(selectedItem, h.getUser().getUserName());
+            ChatView.getInstance().showChatOf(selectedItem);
+        }
+        else{
+            this.updateSelection();
+        }
     }
 
     public void notifyNewMsg(int index){
